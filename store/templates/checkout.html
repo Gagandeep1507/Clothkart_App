@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Checkout{% endblock %}
+{% block content %}
+
+<h2 class="text-center mb-4">Checkout</h2>
+
+{% if cart.items.all %}
+  <table class="table table-bordered" border="2" cellpadding="15">
+    <tr class="text-center">
+      <th>Product</th>
+      <th>Price</th>
+      <th>Qty</th>
+      <th>Total</th>
+    </tr>
+    {% for item in cart.items.all %}
+    <tr class="text-center">
+      <td>{{ item.product.name }}</td>
+      <td>₹{{ item.product.price|floatformat:2 }}</td>
+      <td>{{ item.quantity }}</td>
+      <td>₹{{ item.product.price|floatformat:2 }} X {{ item.quantity }} = ₹{{ item.product.price|floatformat:2 }} 
+</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+  <h3>Total: ₹{{ cart.total_price|floatformat:2 }}</h3>
+
+  <form method="post" action="{% url 'place_order' %}">
+    {% csrf_token %}
+    <button class="btn btn-success" type="submit">Place Order</button>
+  </form>
+{% else %}
+  <p>Your cart is empty.</p>
+{% endif %}
+
+<a href="{% url 'view_cart' %}" class="btn btn-warning mt-3">Back to Cart</a>
+
+  
+{% endblock content %}

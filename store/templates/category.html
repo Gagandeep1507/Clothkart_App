@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+    <div class="container bg-light shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+        <h1 class="text-center shadow p-3 mb-5 bg-body-tertiary rounded fw-bold ">{{ category }} Collection</h1>
+        <div class="row mt-4">
+            {% for product in products %}
+                <div class="col-md-3 ">
+                    <div class="card mb-4 text-center shadow p-2 mb-5 bg-body-tertiary rounded">
+                        <img src="{{ product.image.url }}" class="img-fluid d-block my-2 mx-2 rounded " style="height: 200px;" alt="{{ product.name }}">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold text-primary">{{ product.name| truncatewords:2}}</h5>
+                            <p>{{ product.description|truncatewords:3 }}</p>
+                            <span  class="badge bg-success fs-6">₹{{ product.price }}</span>
+                            
+                            <a href="{% url 'add_cart' product.id %}" class="btn btn-outline-primary btn-sm mt-2 w-100 fw-bold">🛒 Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+        <!-- footer -->
+    <div class="container">
+      <footer
+        class="py-3 my-4 border-top text-center "
+      >
+          <span class="mb-3 mb-md-0 text-body-secondary text-center"
+            >© 2025 Clothkart Company, Inc</span
+          >
+       
+      </footer>
+    </div>
+
+
+  
+{% endblock content %}
